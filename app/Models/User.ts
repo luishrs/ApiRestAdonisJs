@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, beforeSave, hasOne, belongsTo, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, beforeSave, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
 import Client from './Client'
 

@@ -22,6 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.resource('/login', 'LoginsController')
 Route.resource('/register', 'RegistersController')
+Route.resource('/clients', 'ClientsController')
 
 Route.get('/', async () => {
   return { hello: 'world' }
