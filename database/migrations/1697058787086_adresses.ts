@@ -11,7 +11,10 @@ export default class extends BaseSchema {
       table.string('city')
       table.string('neighborhood')
       table.string('street')
-      table.string('number')      
+      table.string('number')   
+      
+      table.integer('client_id').unsigned().references('id').inTable('clients').onDelete('CASCADE')
+      
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
