@@ -1,9 +1,17 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
+import ClientUpdateValidator from 'App/validations/clientValidator'
+import ClientValidator from 'App/validations/clientValidator'
 
 export default class ClientsController {
   public async store({ request, response }: HttpContextContract) {
     const body = request.body()
+
+    try {
+      await request.validate(ClientValidator)
+    } catch ({messages: {errors}}) {
+      return response.status(400).json({erro: errors[0].message})
+    }
 
     try {
       const data = await Client.create(body)
@@ -20,6 +28,7 @@ export default class ClientsController {
   
   try {
     const data = await Client.query().preload('addresses').preload('telephones').preload('user')  
+    data.sort((a, b) => a.id - b.id)
     return data
   }catch (error) {
     return response.status(400).json({ message: error.message })
@@ -36,8 +45,14 @@ export default class ClientsController {
     }
   }
 
-
   public async update({ request, response }: HttpContextContract) {
+
+      try {
+      await request.validate(ClientUpdateValidator)
+    } catch ({messages: {errors}}) {
+      return response.status(400).json({erro: errors[0].message})
+    }
+    
     try {
       const { id } = request.params()
       const {name, cpf} = request.body()
