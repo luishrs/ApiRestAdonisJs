@@ -6,7 +6,7 @@ import SaleShowValidator from 'App/validations/salesShowValidator'
 export default class SalesController {
   public async store ( {request, response}: HttpContextContract) {
     const body = request.body()
-     try {
+    try {
       await request.validate(SaleValidator)
     } catch ({messages: {errors}}) {
       return response.status(400).json({erro: errors[0].message})

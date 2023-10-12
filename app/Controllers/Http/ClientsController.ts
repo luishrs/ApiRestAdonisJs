@@ -55,10 +55,9 @@ export default class ClientsController {
     
     try {
       const { id } = request.params()
-      const {name, cpf} = request.body()
+      const body = request.body()
       const data = await Client.findOrFail(id)
-      data.name = name
-      data.cpf = cpf
+      data.merge(body)
       await data.save()
       return response.status(200).json({
         message: 'Client successfully updated',

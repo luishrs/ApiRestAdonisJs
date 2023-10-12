@@ -24,6 +24,7 @@ Route.resource('/login', 'LoginsController')
 Route.resource('/register', 'RegistersController')
 Route.resource('/clients', 'ClientsController')
 Route.resource('/sales', 'SalesController')
+Route.resource('/products', 'ProductsController')
 
 
 Route.get('/', async () => {
