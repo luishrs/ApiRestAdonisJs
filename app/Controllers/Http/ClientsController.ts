@@ -27,7 +27,7 @@ export default class ClientsController {
   public async index({  response }: HttpContextContract) {
   
   try {
-    const data = await Client.query().preload('addresses').preload('telephones').preload('user')  
+    const data = await Client.query().preload('addresses').preload('telephones').preload('user').preload('sales') 
     data.sort((a, b) => a.id - b.id)
     return data
   }catch (error) {

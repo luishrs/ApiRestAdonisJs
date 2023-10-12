@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, beforeSave, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Client from './Client'
 import Product from './Product'
 
@@ -15,6 +15,9 @@ export default class Sale extends BaseModel {
 
   @column()
   public quantity: number
+
+  @column()
+  public unitPrice: number
 
   @column()
   public totalPrice: number
@@ -33,5 +36,10 @@ export default class Sale extends BaseModel {
   @belongsTo(()=>Product, {
     foreignKey: 'product_id',
   })
-  public sale: BelongsTo<typeof Product>
+  public product: BelongsTo<typeof Product>
+
+   @beforeSave()
+  public static calculateTotalPrice(sale: Sale) {
+    sale.totalPrice = sale.unitPrice * sale.quantity
+  }
 }
