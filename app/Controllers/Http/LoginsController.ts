@@ -12,7 +12,9 @@ export default class LoginsController {
     }
   try {
       const token = await auth.use('api').attempt(email, password)      
-      return response.status(200).json(token)
+      return response.status(200).json({
+        message: 'user successfully logged in',
+        token})
     } catch (error) {
       return response.badRequest({ message: 'incorrect login or password' })
     }
