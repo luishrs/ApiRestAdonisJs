@@ -52,8 +52,6 @@ Docker (Para Ambiente de Desenvolvimento)
 Clone este repositório:
 <br />
 
-bash
-
 ```sh
 git clone https://github.com/seuusuario/seuprojeto.git
 ```
@@ -82,7 +80,18 @@ Inicie o ambiente de desenvolvimento com Docker:
 docker-compose up
 ```
 
-Uso Registro de Usuários Endpoint: POST/register
+Inicie o serviço do bakend:
+
+```sh
+npm run dev
+```
+
+<br />
+
+### Testando a API
+
+Para testar a API e realizar solicitações, recomendamos o uso de uma ferramenta de cliente HTTP, como o [Insomnia](https://insomnia.rest/) ou o [Thunder Client](https://www.thunderclient.io/). Você pode escolher qualquer uma dessas ferramentas para começar a fazer solicitações à API.
+
 <br />
 Para registrar um usuário, faça uma requisição POST/register/ com o corpo da seguinte forma:
 
@@ -92,6 +101,8 @@ Para registrar um usuário, faça uma requisição POST/register/ com o corpo da
 "password": "suasenha"
 }
 ```
+
+<br />
 
 O retorno será no seguinte formato.
 
@@ -105,7 +116,10 @@ O retorno será no seguinte formato.
 }
 ```
 
+<br />
+
 Autenticação de Usuários após o Endpoint: POST /login
+<br />
 <br />
 Para autenticar um usuário, faça uma requisição POST com o corpo da seguinte forma:
 
@@ -135,6 +149,10 @@ A resposta incluirá um token de autenticação.
 
 ### Acesso a Recursos Protegidos
 
+/clients: CRUD de Clientes (Requer Autenticação)
+/products: CRUD de Produtos (Requer Autenticação)
+/sales: CRUD de Vendas (Requer Autenticação)
+
 #### Rotas<br />
 
 /clients: CRUD de Clientes (Requer Autenticação)
@@ -149,6 +167,7 @@ Para registrar um cliente, faça uma requisição POST/clients/ com o corpo da s
 }
 ```
 
+<br />
 Obs: o user_id deve ser o mesmo recebino na rota POST/register/
 
 O retorno será no seguinte formato.
@@ -167,7 +186,8 @@ O retorno será no seguinte formato.
 }
 ```
 
-A rota GET/clients o retorno será no seguinte formato.
+<br />
+A rota GET/clients ou GET/clientes/:id, retorno será no seguinte formato.
 
 ```sh
 [
@@ -263,6 +283,246 @@ A rota DELETE/clients/:id, o retorno será no seguinte formato.
 ```
 
 <br />
-/sales: CRUD de Vendas (Requer Autenticação)
-<br />
 /products: CRUD de Produtos (Requer Autenticação)
+
+Para registrar um produto, faça uma requisição POST/products/ com o corpo da seguinte forma:
+
+```sh
+{
+  "name": "Livro 2",
+  "author": "autor 2",
+  "editor":"editora 2",
+  "price":"8"
+}
+
+```
+
+O retorno será no seguinte formato.
+
+```sh
+{
+  "name": "Livro 2",
+  "author": "autor 2",
+  "editor": "editora 2",
+  "price": "8",
+  "created_at": "2023-10-13T17:12:47.920-03:00",
+  "updated_at": "2023-10-13T17:12:47.920-03:00",
+  "id": 3
+}
+```
+
+Para listar todos os produtos, faça uma requisição GET/products/ ou GET/products/:id, o retorno será no seguinte formato.
+
+```sh
+[
+  {
+    "id": 3,
+    "name": "Livro 2 atualizado",
+    "author": "autor 2 atualizado",
+    "editor": "editora 2 atualizado",
+    "price": 3,
+    "created_at": "2023-10-13T17:12:47.000-03:00",
+    "updated_at": "2023-10-13T17:14:57.000-03:00"
+  },
+  {
+    "id": 2,
+    "name": "Livro 1",
+    "author": "autor 1",
+    "editor": "editora 1",
+    "price": 8,
+    "created_at": "2023-10-13T17:12:07.000-03:00",
+    "updated_at": "2023-10-13T17:12:07.000-03:00"
+  },
+]
+
+```
+
+Para atualizar um produto, faça uma requisição PUT/products/:id com o corpo da seguinte forma:
+
+```sh
+{
+  "name": "Livro 2 atualizado",
+  "author": "autor 2 atualizado",
+  "editor":"editora 2 atualizado",
+  "price":3
+}
+```
+
+<br />
+o retorno será no seguinte formato.
+
+```sh
+{
+  "id": 3,
+  "name": "Livro 2 atualizado",
+  "author": "autor 2 atualizado",
+  "editor": "editora 2 atualizado",
+  "price": 3,
+  "created_at": "2023-10-13T17:12:47.000-03:00",
+  "updated_at": "2023-10-13T17:14:57.886-03:00"
+}
+```
+
+<br />
+Para deletar um produto, faça uma requisição DELETE/products/:id com o corpo da seguinte forma:
+
+```sh
+{
+  "message": "Product deleted",
+  "product": {
+    "id": 5,
+    "name": "Livro para ser deletado",
+    "author": "autor ",
+    "editor": "editora",
+    "price": 6,
+    "created_at": "2023-10-13T17:23:36.000-03:00",
+    "updated_at": "2023-10-13T17:23:36.000-03:00"
+  }
+}
+```
+
+<br />
+/sales: CRUD de Vendas (Requer Autenticação)
+
+Para Criar uma venda, faça uma requisição POST/sales/ com o corpo da seguinte forma:
+
+```sh
+{
+  "client_id":1,
+  "product_id":1,
+  "quantity":2,
+  "unit_price":5
+}
+```
+
+<br />
+o retorno será no seguinte formato.
+
+```sh
+{
+  "client_id": 1,
+  "product_id": 1,
+  "quantity": 2,
+  "unit_price": 5,
+  "total_price": 10,
+  "created_at": "2023-10-13T17:31:08.688-03:00",
+  "updated_at": "2023-10-13T17:31:08.688-03:00",
+  "id": 1
+}
+```
+
+<br />
+Para filtrar uma venda pelo ano/mês, faça uma requisição GET/sales/ nesse formato:<br />
+/sales/filter?year=2023&month=1 onde o mês e anos foram descritos, o retorno será no seguinte formato.
+
+```sh
+[
+  {
+    "id": 3,
+    "client_id": 1,
+    "product_id": 1,
+    "quantity": 5,
+    "unit_price": 3,
+    "total_price": 15,
+    "created_at": "2023-01-03T00:00:00.000-03:00",
+    "updated_at": "2023-01-03T00:00:00.000-03:00",
+    "product": {
+      "id": 1,
+      "name": "Naruto",
+      "author": "naruto",
+      "editor": "xablau",
+      "price": 8,
+      "created_at": "2023-10-13T14:55:54.000-03:00",
+      "updated_at": "2023-10-13T14:55:54.000-03:00"
+    },
+    "client": {
+      "id": 1,
+      "name": "Nome do Cliente Atualizado",
+      "cpf": "00000000000",
+      "user_id": 2,
+      "created_at": "2023-10-13T16:46:52.000-03:00",
+      "updated_at": "2023-10-13T17:00:01.000-03:00"
+    }
+  }
+]
+```
+
+<br />
+Para listar todas as vendas, faça uma requisição GET/sales/, o retorno será no seguinte formato.
+
+```sh
+[
+  {
+    "id": 2,
+    "client_id": 1,
+    "product_id": 1,
+    "quantity": 5,
+    "unit_price": 3,
+    "total_price": 15,
+    "created_at": "2023-10-13T17:32:26.000-03:00",
+    "updated_at": "2023-10-13T17:32:37.000-03:00",
+    "client": {
+      "id": 1,
+      "name": "Nome do Cliente Atualizado",
+      "cpf": "00000000000",
+      "user_id": 2,
+      "created_at": "2023-10-13T16:46:52.000-03:00",
+      "updated_at": "2023-10-13T17:00:01.000-03:00"
+    },
+    "product": {
+      "id": 1,
+      "name": "Naruto",
+      "author": "naruto",
+      "editor": "xablau",
+      "price": 8,
+      "created_at": "2023-10-13T14:55:54.000-03:00",
+      "updated_at": "2023-10-13T14:55:54.000-03:00"
+    }
+  },
+  {
+    "id": 1,
+    "client_id": 1,
+    "product_id": 1,
+    "quantity": 2,
+    "unit_price": 5,
+    "total_price": 10,
+    "created_at": "2023-10-13T17:31:08.000-03:00",
+    "updated_at": "2023-10-13T17:31:08.000-03:00",
+    "client": {
+      "id": 1,
+      "name": "Nome do Cliente Atualizado",
+      "cpf": "00000000000",
+      "user_id": 2,
+      "created_at": "2023-10-13T16:46:52.000-03:00",
+      "updated_at": "2023-10-13T17:00:01.000-03:00"
+    },
+    "product": {
+      "id": 1,
+      "name": "Naruto",
+      "author": "naruto",
+      "editor": "xablau",
+      "price": 8,
+      "created_at": "2023-10-13T14:55:54.000-03:00",
+      "updated_at": "2023-10-13T14:55:54.000-03:00"
+    }
+  },
+  {
+    "id": 3,
+    "client_id": 1,
+    "product_id": 1,
+    "quantity": 5,
+    "unit_price": 3,
+    "total_price": 15,
+    "created_at": "2023-01-03T00:00:00.000-03:00",
+    "updated_at": "2023-01-03T00:00:00.000-03:00",
+    "client": {
+      "id": 1,
+      "name": "Nome do Cliente Atualizado",
+      "cpf": "00000000000",
+      "user_id": 2,
+      "created_at": "2023-10-13T16:46:52.000-03:00",
+      "updated_at": "2023-10-13T17:00:01.000-03:00"
+    }
+
+]
+```

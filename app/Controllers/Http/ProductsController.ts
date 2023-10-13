@@ -61,7 +61,10 @@ const body = request.body()
     try {
       const product = await Product.findOrFail(params.id)
       await product.delete()
-      return response.status(200).json({message: 'Product deleted'})
+      return response.status(200).json({
+        message: 'Product deleted',
+        product
+    })
     } catch (error) {
       return response.status(400).json({message: "Product not found"})
     }
