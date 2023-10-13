@@ -1,0 +1,9 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0.23
+    container_name: betest    
+    environment:
+      MYSQL_ROOT_PASSWORD: betest
+    ports:
+      - "3306:3306"
