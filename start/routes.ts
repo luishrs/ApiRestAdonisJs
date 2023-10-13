@@ -19,13 +19,14 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-
-Route.resource('/login', 'LoginsController')
 Route.resource('/register', 'RegistersController')
+Route.resource('/login', 'LoginsController')
+
+Route.group(() => {
 Route.resource('/clients', 'ClientsController')
 Route.resource('/sales', 'SalesController')
 Route.resource('/products', 'ProductsController')
-
+}).middleware('auth')
 
 Route.get('/', async () => {
   return { hello: 'world' }
