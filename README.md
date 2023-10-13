@@ -32,7 +32,10 @@ MySQL (Banco de Dados)
 Docker (Para Ambiente de Desenvolvimento)
 <br />...
 <br />
-<br />
+
+### Documentação do AdonisJS
+
+Você pode encontrar a documentação oficial do AdonisJS [aqui](https://adonisjs.com/).
 
 ### Pré-requisitos
 
@@ -149,11 +152,12 @@ A resposta incluirá um token de autenticação.
 
 ### Acesso a Recursos Protegidos
 
-/clients: CRUD de Clientes (Requer Autenticação)
-/products: CRUD de Produtos (Requer Autenticação)
-/sales: CRUD de Vendas (Requer Autenticação)
+/clients: CRUD de Clientes (Requer Autenticação)<br />
+/products: CRUD de Produtos (Requer Autenticação)<br />
+/sales: CRUD de Vendas (Requer Autenticação)<br />
+<br />
 
-#### Rotas<br />
+### Rotas<br />
 
 /clients: CRUD de Clientes (Requer Autenticação)
 
