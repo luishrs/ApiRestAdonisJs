@@ -70,9 +70,9 @@ cd ApiRestAdonisJs
 
 <br />
 
-**:warning: Antes de começar, seu docker-compose precisa estar na versão 1.25 ou superior. .**
+**_Antes de começar, seu docker-compose precisa estar na versão 1.25 ou superior._**
 
-#### Renomear arquivo `.env.example` para `.env`
+#### Renomear arquivo "`.env.example`" para "`.env`"
 
 Instale as dependências
 
