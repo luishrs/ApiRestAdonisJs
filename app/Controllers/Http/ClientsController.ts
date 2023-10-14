@@ -79,7 +79,7 @@ export default class ClientsController {
         data
       })
     } catch (error) {
-      return response.status(400).json({ message: error.message })
+      return response.status(400).json({ message: 'Client not found' })
     }
   }
 }
