@@ -38,7 +38,7 @@ export default class ClientsController {
   public async show({ request, response }: HttpContextContract) {
     try {
       const { id } = request.params()      
-      const client = await Client.query().preload('addresses').preload('telephones').preload('user').where('id', id)
+      const client = await Client.query().preload('addresses').preload('telephones').preload('user').preload('sales').where('id', id)
       return client
     } catch (error) {
       return response.status(400).json({ message: 'Client not found' })
