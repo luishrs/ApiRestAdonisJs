@@ -53,7 +53,7 @@ export default class ClientsController {
   }
 
   public async update({ request, response, params }: HttpContextContract) {
-    const{address, telephone:{ number }} = request.body()   
+    const{address, telephone} = request.body()   
     try {
       await request.validate(ClientUpdateValidator)
     } catch ({messages: {errors}}) {
@@ -62,9 +62,9 @@ export default class ClientsController {
     if (address) {
       await registerAddress(address, params.id)
     }
-    if (number) {
-      await registerTelephone(number, params.id)
-  }
+  if (telephone && telephone.number) { 
+      await registerTelephone(telephone.number, params.id);
+    }
   
   try {   
       const {name, cpf} = request.body()
