@@ -27,6 +27,7 @@ const { name} = body
   }
 
   public async index ({ response }: HttpContextContract) {
+    
     try {
       const products = await Product.query().select(['id', 'name']).orderBy('name', 'asc')
       return response.status(200).json(products)
@@ -40,7 +41,7 @@ const { name} = body
       const product = await Product.findOrFail(params.id)
       return response.status(200).json(product)
     } catch (error) {
-      return response.status(400).json({message: error.message})
+      return response.status(400).json({message: 'Product not found'})
     }
   }
 
@@ -59,7 +60,7 @@ const { name} = body
       await product.save()
       return response.status(200).json(product)
     } catch (error) {
-      return response.status(400).json({message: "Product not found" })
+      return response.status(400).json({message: 'Product not found' })
     }
   }
 
@@ -72,7 +73,7 @@ const { name} = body
         product
     })
     } catch (error) {
-      return response.status(400).json({message: "Product not found"})
+      return response.status(400).json({message: 'Product not found'})
     }
   }
 }

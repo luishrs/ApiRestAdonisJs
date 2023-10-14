@@ -1,41 +1,37 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Product from 'App/Models/Product'
 import Sale from 'App/Models/Sale'
+import isStockSufficient from 'App/utils/stockManager'
 import SaleValidator from 'App/validations/saleValidator'
 import SaleShowValidator from 'App/validations/salesShowValidator'
 
 export default class SalesController {
+
   public async store ( {request, response}: HttpContextContract) {
     const body = request.body()
-    const { client_id, product_id, quantity,} = body
     try {
       await request.validate(SaleValidator)
     } catch ({messages: {errors}}) {
       return response.status(400).json({erro: errors[0].message})
     }
 
-    const product = await Product.findBy('id', product_id)
-    const sale = {
-      client_id,
-      product_id,
-      quantity,
-      unit_price: Number(product?.price),
-    }
-
     try {
       const saleregistred = await Sale.create(sale)
       return response.status(201).json(saleregistred)
     } catch (error) {
-      return response.status(400).json({message: error.message})
+      return response.status(400).json({message: 'Product or client not found'})
     }     
   }
   
   public async index ({response}: HttpContextContract) {
     try {
-      const data = await Sale.query().preload('client').preload('product').orderBy('created_at', 'desc')     
+      const data = await Sale.query().preload('client').preload('product').orderBy('created_at', 'desc')    
+      if (data.length === 0) {
+        throw new Error('There are no registered sales')
+      } 
       return data
     } catch (error) {
-      return response.status(400).json({message: error.message})
+      return response.status(400).json({message: 'Sales not found'})
     }
   }
 
