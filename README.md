@@ -89,7 +89,7 @@ npm run dev
 
 <br />
 
-Iniciar o docker do banco de dados.
+Iniciar o docker do banco de dados, abra outro terminal e execute o comando.
 
 ```sh
 docker-compose up -d
@@ -99,7 +99,7 @@ docker-compose up -d
 
 ### Conectando ao Banco de Dados
 
-Para interagir com o banco de dados e gerenciar seus dados de forma visual, você pode usar uma aplicação de interface gráfica de banco de dados de sua escolha. Recomendamos o uso da extensão "MySQL" para o Visual Studio Code, que oferece funcionalidades poderosas e é uma opção conveniente para desenvolvedores que já estão familiarizados com o ambiente do VS Code.
+Para interagir e gerenciar seus dados de forma visual, você pode usar uma aplicação de interface gráfica de banco de dados de sua escolha. Recomendamos o uso da extensão "MySQL" para o Visual Studio Code, que oferece funcionalidades poderosas e é uma opção conveniente para desenvolvedores que já estão familiarizados com o ambiente do VS Code.
 
 No entanto, se você preferir usar uma aplicação independente, existem várias opções populares disponíveis:
 
@@ -113,7 +113,7 @@ Escolha a aplicação que melhor se adapte às suas necessidades e preferências
 
 ## Lembre-se de configurar a conexão com o banco de dados `usuário: root`,` password: betest`, demais informações são fornecidas no arquivo `.env` do projeto.
 
-Abra outro terminal e execute o comenado npm run prestart realiza várias etapas essenciais para a inicialização do projeto, a configuração do ambiente, a execução das migrações de banco de dados e a inserção de dados fictícios no banco .
+Execute o comando npm run prestart realiza várias etapas essenciais para a inicialização do projeto, a configuração do ambiente, a execução das migrações de banco de dados e a inserção de dados fictícios no banco .
 <br />
 
 ```sh
@@ -127,6 +127,7 @@ npm run prestart
 Para testar a API e realizar solicitações, recomendamos o uso de uma ferramenta de cliente HTTP, como o [Insomnia](https://insomnia.rest/) ou o [Thunder Client](https://www.thunderclient.io/). Você pode escolher qualquer uma dessas ferramentas para começar a fazer solicitações à API.
 
 <br />
+
 Para registrar um usuário, faça uma requisição POST http://localhost:3333/register com o corpo da seguinte forma:
 
 ```sh
@@ -210,6 +211,7 @@ Para registrar um cliente, faça uma requisição POST http://localhost:3333/cli
 ```
 
 <br />
+
 Obs: o user_id deve ser o mesmo recebino na rota POST http://localhost:3333/register
 
 O retorno será no seguinte formato.
@@ -229,6 +231,7 @@ O retorno será no seguinte formato.
 ```
 
 <br />
+
 A rota GET/clients ou GET http://localhost:3333/clientes/:id, retorno será no seguinte formato.
 
 ```sh
@@ -282,6 +285,8 @@ A rota GET/clients ou GET http://localhost:3333/clientes/:id, retorno será no s
 
 ```
 
+<br />
+
 A rota PUT http://localhost:3333/clientes/:id necessitara das mesmas insformaçoes na POST
 
 ```sh
@@ -334,10 +339,12 @@ Para registrar um produto, faça uma requisição POST http://localhost:3333/pro
   "name": "Livro 2",
   "author": "autor 2",
   "editor":"editora 2",
-  "price":"8"
+  "price": 8.99
 }
 
 ```
+
+<br />
 
 O retorno será no seguinte formato.
 
@@ -346,12 +353,14 @@ O retorno será no seguinte formato.
   "name": "Livro 2",
   "author": "autor 2",
   "editor": "editora 2",
-  "price": "8",
+  "price": 8.99,
   "created_at": "2023-10-13T17:12:47.920-03:00",
   "updated_at": "2023-10-13T17:12:47.920-03:00",
   "id": 3
 }
 ```
+
+<br />
 
 Para listar todos os produtos, faça uma requisição GET http://localhost:3333/products ou GET http://localhost:3333/products/:id, o retorno será no seguinte formato.
 
@@ -378,6 +387,8 @@ Para listar todos os produtos, faça uma requisição GET http://localhost:3333/
 ]
 
 ```
+
+<br />
 
 Para atualizar um produto, faça uma requisição PUT http://localhost:3333/products/:id com o corpo da seguinte forma:
 
@@ -406,6 +417,7 @@ o retorno será no seguinte formato.
 ```
 
 <br />
+
 Para deletar um produto, faça uma requisição DELETE http://localhost:3333/products/:id com o corpo da seguinte forma:
 
 ```sh
@@ -424,6 +436,7 @@ Para deletar um produto, faça uma requisição DELETE http://localhost:3333/pro
 ```
 
 <br />
+
 /sales: CRUD de Vendas (Requer Autenticação)
 
 Para Criar uma venda, faça uma requisição POST http://localhost:3333/sales com o corpo da seguinte forma:
@@ -454,8 +467,9 @@ o retorno será no seguinte formato.
 ```
 
 <br />
+
 Para filtrar uma venda pelo ano/mês, faça uma requisição GET http://localhost:3333/sales nesse formato:<br />
-http://localhost:3333/sales/filter?year=2023&month=1 onde o mês e anos foram descritos, o retorno será no seguinte formato.
+http://localhost:3333/sales/filter?year=2023&month=10 onde o mês e anos foram descritos, o retorno será no seguinte formato.
 
 ```sh
 [
@@ -490,6 +504,7 @@ http://localhost:3333/sales/filter?year=2023&month=1 onde o mês e anos foram de
 ```
 
 <br />
+
 Para listar todas as vendas, faça uma requisição GET http://localhost:3333/sales, o retorno será no seguinte formato.
 
 ```sh
