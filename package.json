@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node ace serve --watch",
-    "prestart": "npm install && docker-compose up -d && node ace migration:run && node ace db:seed",
+    "prestart": "docker-compose up -d && node ace migration:run && node ace db:seed",
     "build": "node ace build --production",
     "start": "node server.js",
     "test": "node ace test"
