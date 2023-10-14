@@ -5,5 +5,6 @@ services:
     container_name: betest    
     environment:
       MYSQL_ROOT_PASSWORD: betest
+      MYSQL_DATABASE: be-test
     ports:
-      - "3306:3306"
+      - 3306:3306

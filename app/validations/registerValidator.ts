@@ -9,7 +9,7 @@ export default class registerValidator {
     ]),
     password: schema.string({}, [
       rules.required(),
-      rules.minLength(8),
+      rules.minLength(6),
       rules.maxLength(15),
     ]),  
     

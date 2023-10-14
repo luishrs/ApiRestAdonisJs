@@ -10,7 +10,7 @@ export default class Address extends BaseModel {
   public client_id: number
 
   @column()
-  public contry: string
+  public country: string
 
   @column()
   public state: string

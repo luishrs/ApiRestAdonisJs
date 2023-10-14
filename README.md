@@ -56,7 +56,7 @@ Clone este repositório:
 <br />
 
 ```sh
-git clone https://github.com/seuusuario/seuprojeto.git
+git clone git@github.com:luishrs/ApiRestAdonisJs.git
 ```
 
 <br />
@@ -64,24 +64,14 @@ Navegue até o diretório do projeto:
 <br />
 
 ```sh
-cd seuprojeto
+cd ApiRestAdonisJs
 ```
 
-<br /><br />
-Instale as dependências:
 <br />
 
-```sh
-npm install
-```
+#### Renomear arquivo ".env.example" para ".env"
 
-<br /><br />
-Inicie o ambiente de desenvolvimento com Docker:
 <br />
-
-```sh
-docker-compose up
-```
 
 Inicie o serviço do bakend:
 
@@ -91,12 +81,28 @@ npm run dev
 
 <br />
 
+### Conectando ao Banco de Dados
+
+Para interagir com o banco de dados e gerenciar seus dados de forma visual, você pode usar uma aplicação de interface gráfica de banco de dados de sua escolha. Recomendamos o uso da extensão "MySQL" para o Visual Studio Code, que oferece funcionalidades poderosas e é uma opção conveniente para desenvolvedores que já estão familiarizados com o ambiente do VS Code.
+
+No entanto, se você preferir usar uma aplicação independente, existem várias opções populares disponíveis:
+
+1. **MySQL Workbench**: Uma aplicação oficial da Oracle para gerenciar bancos de dados MySQL. Você pode baixá-la [aqui](https://www.mysql.com/products/workbench/).
+
+2. **DBeaver**: Uma ferramenta de banco de dados universal que suporta vários sistemas de gerenciamento de bancos de dados, incluindo MySQL. Você pode baixá-la [aqui](https://dbeaver.io/).
+
+3. **phpMyAdmin**: Uma aplicação web para gerenciar bancos de dados MySQL. É acessível através de um navegador. Você pode instalá-lo seguindo as instruções disponíveis [aqui](https://www.phpmyadmin.net/).
+
+Escolha a aplicação que melhor se adapte às suas necessidades e preferências. Depois de instalá-la, você poderá usar a interface gráfica para conectar-se ao seu banco de dados, criar tabelas, inserir dados e realizar outras tarefas de gerenciamento.
+
+Lembre-se de configurar a conexão com o banco de dados **usuário: root**, **password: betest**, demais informações são fornecidas no arquivo `.env` do projeto.
+
 ### Testando a API
 
 Para testar a API e realizar solicitações, recomendamos o uso de uma ferramenta de cliente HTTP, como o [Insomnia](https://insomnia.rest/) ou o [Thunder Client](https://www.thunderclient.io/). Você pode escolher qualquer uma dessas ferramentas para começar a fazer solicitações à API.
 
 <br />
-Para registrar um usuário, faça uma requisição POST/register/ com o corpo da seguinte forma:
+Para registrar um usuário, faça uma requisição POST http://localhost:3333/register com o corpo da seguinte forma:
 
 ```sh
 {
@@ -121,7 +127,7 @@ O retorno será no seguinte formato.
 
 <br />
 
-Autenticação de Usuários após o Endpoint: POST /login
+Autenticação de Usuários após o Endpoint: POST http://localhost:3333/login
 <br />
 <br />
 Para autenticar um usuário, faça uma requisição POST com o corpo da seguinte forma:
@@ -152,16 +158,23 @@ A resposta incluirá um token de autenticação.
 
 ### Acesso a Recursos Protegidos
 
-/clients: CRUD de Clientes (Requer Autenticação)<br />
-/products: CRUD de Produtos (Requer Autenticação)<br />
-/sales: CRUD de Vendas (Requer Autenticação)<br />
+As seguintes rotas são protegidas e requerem autenticação por meio do token recebido após o login, que deve ser incluído no cabeçalho de autenticação (Auth) com o tipo "Bearer" para ser autorizado:
+
+- **/clients**: Permite operações CRUD (Criar, Ler, Atualizar e Deletar) de Clientes.
+
+- **/products**: Permite operações CRUD de Produtos.
+
+- **/sales**: Permite operações CRUD de Vendas.
+
+Para acessar essas rotas, certifique-se de que o token de autenticação esteja corretamente configurado no cabeçalho de suas solicitações, como no exemplo a seguir:
+
 <br />
 
 ### Rotas<br />
 
 /clients: CRUD de Clientes (Requer Autenticação)
 
-Para registrar um cliente, faça uma requisição POST/clients/ com o corpo da seguinte forma:
+Para registrar um cliente, faça uma requisição POST http://localhost:3333/clients com o corpo da seguinte forma:
 
 ```sh
 {
@@ -172,7 +185,7 @@ Para registrar um cliente, faça uma requisição POST/clients/ com o corpo da s
 ```
 
 <br />
-Obs: o user_id deve ser o mesmo recebino na rota POST/register/
+Obs: o user_id deve ser o mesmo recebino na rota POST http://localhost:3333/register
 
 O retorno será no seguinte formato.
 
@@ -191,7 +204,7 @@ O retorno será no seguinte formato.
 ```
 
 <br />
-A rota GET/clients ou GET/clientes/:id, retorno será no seguinte formato.
+A rota GET/clients ou GET http://localhost:3333/clientes/:id, retorno será no seguinte formato.
 
 ```sh
 [
@@ -244,7 +257,7 @@ A rota GET/clients ou GET/clientes/:id, retorno será no seguinte formato.
 
 ```
 
-A rota PUT/clientes/:id necessitara das mesmas insformaçoes na POST
+A rota PUT http://localhost:3333/clientes/:id necessitara das mesmas insformaçoes na POST
 
 ```sh
 {
@@ -270,7 +283,7 @@ O retorno será no seguinte formato.
 }
 ```
 
-A rota DELETE/clients/:id, o retorno será no seguinte formato.
+A rota DELETE http://localhost:3333/clients/:id, o retorno será no seguinte formato.
 
 ```sh
 {
@@ -289,7 +302,7 @@ A rota DELETE/clients/:id, o retorno será no seguinte formato.
 <br />
 /products: CRUD de Produtos (Requer Autenticação)
 
-Para registrar um produto, faça uma requisição POST/products/ com o corpo da seguinte forma:
+Para registrar um produto, faça uma requisição POST http://localhost:3333/products com o corpo da seguinte forma:
 
 ```sh
 {
@@ -315,7 +328,7 @@ O retorno será no seguinte formato.
 }
 ```
 
-Para listar todos os produtos, faça uma requisição GET/products/ ou GET/products/:id, o retorno será no seguinte formato.
+Para listar todos os produtos, faça uma requisição GET http://localhost:3333/products ou GET http://localhost:3333/products/:id, o retorno será no seguinte formato.
 
 ```sh
 [
@@ -341,7 +354,7 @@ Para listar todos os produtos, faça uma requisição GET/products/ ou GET/produ
 
 ```
 
-Para atualizar um produto, faça uma requisição PUT/products/:id com o corpo da seguinte forma:
+Para atualizar um produto, faça uma requisição PUT http://localhost:3333/products/:id com o corpo da seguinte forma:
 
 ```sh
 {
@@ -368,7 +381,7 @@ o retorno será no seguinte formato.
 ```
 
 <br />
-Para deletar um produto, faça uma requisição DELETE/products/:id com o corpo da seguinte forma:
+Para deletar um produto, faça uma requisição DELETE http://localhost:3333/products/:id com o corpo da seguinte forma:
 
 ```sh
 {
@@ -388,7 +401,7 @@ Para deletar um produto, faça uma requisição DELETE/products/:id com o corpo 
 <br />
 /sales: CRUD de Vendas (Requer Autenticação)
 
-Para Criar uma venda, faça uma requisição POST/sales/ com o corpo da seguinte forma:
+Para Criar uma venda, faça uma requisição POST http://localhost:3333/sales com o corpo da seguinte forma:
 
 ```sh
 {
@@ -416,8 +429,8 @@ o retorno será no seguinte formato.
 ```
 
 <br />
-Para filtrar uma venda pelo ano/mês, faça uma requisição GET/sales/ nesse formato:<br />
-/sales/filter?year=2023&month=1 onde o mês e anos foram descritos, o retorno será no seguinte formato.
+Para filtrar uma venda pelo ano/mês, faça uma requisição GET http://localhost:3333/sales nesse formato:<br />
+http://localhost:3333/sales/filter?year=2023&month=1 onde o mês e anos foram descritos, o retorno será no seguinte formato.
 
 ```sh
 [
@@ -452,7 +465,7 @@ Para filtrar uma venda pelo ano/mês, faça uma requisição GET/sales/ nesse fo
 ```
 
 <br />
-Para listar todas as vendas, faça uma requisição GET/sales/, o retorno será no seguinte formato.
+Para listar todas as vendas, faça uma requisição GET http://localhost:3333/sales, o retorno será no seguinte formato.
 
 ```sh
 [

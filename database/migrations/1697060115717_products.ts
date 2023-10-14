@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.string('name')
       table.string('author')
       table.string('editor')
-      table.integer('price')
+      table.decimal('price', 8, 2)
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
