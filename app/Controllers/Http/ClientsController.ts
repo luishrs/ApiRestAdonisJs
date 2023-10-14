@@ -29,7 +29,7 @@ export default class ClientsController {
   public async index({  response }: HttpContextContract) {
   
   try {
-    const data = await Client.query().preload('addresses').preload('telephones').orderBy('id', 'desc') 
+    const data = await Client.query().select(['name','id' ]).orderBy('id', 'desc') 
     if (data.length === 0) {
       return response.status(400).json({ message: 'There are no unregistered customers' })
     }
