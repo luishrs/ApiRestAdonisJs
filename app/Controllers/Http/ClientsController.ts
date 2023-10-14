@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
-import ClientUpdateValidator from 'App/validations/clientValidator'
+import ClientUpdateValidator from 'App/validations/clientUpdateValidator'
 import ClientValidator from 'App/validations/clientValidator'
 
 export default class ClientsController {
@@ -79,7 +79,7 @@ export default class ClientsController {
         data
       })
     } catch (error) {
-      return response.status(400).json({ message: error.message })
+      return response.status(400).json({ message: 'Client not found' })
     }
   }
 }

@@ -1,6 +1,10 @@
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import { schema,rules } from '@ioc:Adonis/Core/Validator'
 
 export default class ClientUpdateValidator {
+  constructor (protected ctx: HttpContextContract) {
+  }
+
   public schema = schema.create({
     name: schema.string({}, [
       rules.required(),
@@ -12,7 +16,10 @@ export default class ClientUpdateValidator {
       rules.required(),
       rules.minLength(11),
       rules.maxLength(11),
-      rules.unique({ table: 'clients', column: 'cpf' }),
+      rules.unique({ 
+        table: 'clients', 
+        column: 'cpf',
+        whereNot: { id: this.ctx.params.id } }),
     ]),    
   })
 
