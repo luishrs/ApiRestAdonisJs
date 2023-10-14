@@ -16,7 +16,7 @@ export default class LoginsController {
         message: 'user successfully logged in',
         token})
     } catch (error) {
-      return response.badRequest({ message: 'incorrect login or password' })
+      return response.badRequest({ message: 'incorrect email or password' })
     }
 }  
 }

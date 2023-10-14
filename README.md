@@ -206,7 +206,6 @@ Para registrar um cliente, faça uma requisição POST http://localhost:3333/cli
 {
   "name":"Nome do Cliente",
   "cpf": "12345678963",
-  "user_id": 2
 }
 ```
 
@@ -222,7 +221,6 @@ O retorno será no seguinte formato.
   "data": {
     "name": "Nome do Cliente",
     "cpf": "12345678963",
-    "user_id": 2,
     "created_at": "2023-10-13T16:46:52.878-03:00",
     "updated_at": "2023-10-13T16:46:52.878-03:00",
     "id": 1
@@ -240,7 +238,6 @@ A rota GET/clients ou GET http://localhost:3333/clientes/:id, retorno será no s
     "id": 1,
     "name": "Nome do Cliente",
     "cpf": "12345678963",
-    "user_id": 2,
     "created_at": "2023-10-13T16:46:52.000-03:00",
     "updated_at": "2023-10-13T16:46:52.000-03:00",
     "addresses": [
@@ -293,7 +290,6 @@ A rota PUT http://localhost:3333/clientes/:id necessitara das mesmas insformaço
 {
   "name":"Nome do Cliente Atualizado",
   "cpf": "00000000000",
-  "user_id": 2
 }
 ```
 
@@ -306,7 +302,6 @@ O retorno será no seguinte formato.
     "id": 1,
     "name": "Nome do Cliente Atualizado",
     "cpf": "00000000000",
-    "user_id": 2,
     "created_at": "2023-10-13T16:46:52.000-03:00",
     "updated_at": "2023-10-13T17:00:01.348-03:00"
   }
@@ -322,7 +317,6 @@ A rota DELETE http://localhost:3333/clients/:id, o retorno será no seguinte for
     "id": 2,
     "name": "Nome do Cliente para deletar",
     "cpf": "85296374147",
-    "user_id": 2,
     "created_at": "2023-10-13T17:02:07.000-03:00",
     "updated_at": "2023-10-13T17:02:07.000-03:00"
   }
@@ -495,7 +489,6 @@ http://localhost:3333/sales/filter?year=2023&month=10 onde o mês e anos foram d
       "id": 1,
       "name": "Nome do Cliente Atualizado",
       "cpf": "00000000000",
-      "user_id": 2,
       "created_at": "2023-10-13T16:46:52.000-03:00",
       "updated_at": "2023-10-13T17:00:01.000-03:00"
     }
@@ -522,7 +515,6 @@ Para listar todas as vendas, faça uma requisição GET http://localhost:3333/sa
       "id": 1,
       "name": "Nome do Cliente Atualizado",
       "cpf": "00000000000",
-      "user_id": 2,
       "created_at": "2023-10-13T16:46:52.000-03:00",
       "updated_at": "2023-10-13T17:00:01.000-03:00"
     },
@@ -549,7 +541,6 @@ Para listar todas as vendas, faça uma requisição GET http://localhost:3333/sa
       "id": 1,
       "name": "Nome do Cliente Atualizado",
       "cpf": "00000000000",
-      "user_id": 2,
       "created_at": "2023-10-13T16:46:52.000-03:00",
       "updated_at": "2023-10-13T17:00:01.000-03:00"
     },
@@ -576,7 +567,6 @@ Para listar todas as vendas, faça uma requisição GET http://localhost:3333/sa
       "id": 1,
       "name": "Nome do Cliente Atualizado",
       "cpf": "00000000000",
-      "user_id": 2,
       "created_at": "2023-10-13T16:46:52.000-03:00",
       "updated_at": "2023-10-13T17:00:01.000-03:00"
     }
