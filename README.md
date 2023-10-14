@@ -30,7 +30,8 @@ AdonisJS
 MySQL (Banco de Dados)
 <br />
 Docker (Para Ambiente de Desenvolvimento)
-<br />...
+<br />
+MySQL Workbench (Interface gráfica para banco de dados)
 <br />
 
 ### Documentação do AdonisJS
@@ -46,7 +47,7 @@ npm (Gerenciador de Pacotes)
 <br />
 Docker (Para Ambiente de Desenvolvimento)
 <br />
-...
+MySQL Workbench (Interface gráfica para banco de dados)
 <br /><br />
 
 ### Instalação
@@ -69,22 +70,30 @@ cd ApiRestAdonisJs
 
 <br />
 
-#### Renomear arquivo ".env.example" para ".env"
+**:warning: Antes de começar, seu docker-compose precisa estar na versão 1.25 ou superior. .**
 
-<br /> 
-Em seguida, execute o seguinte comando para configurar seu ambiente e iniciar o serviço do backend:
+#### Renomear arquivo `.env.example` para `.env`
+
+Instale as dependências
 
 ```sh
-npm run prestart
+npm install
+```
+
+<br />
+Iniciar o serviço de back-end
+
+```sh
+npm run dev
 ```
 
 <br />
 
-O comando npm run prestart realiza várias etapas essenciais para a inicialização do projeto, incluindo a instalação de dependências, a configuração do ambiente, a execução das migrações de banco de dados e a inserção de dados fictícios no banco . Depois disso, você pode iniciar o serviço do backend usando:
+Abra outro terminal e execute o comenado npm run prestart realiza várias etapas essenciais para a inicialização do projeto, a configuração do ambiente, a execução das migrações de banco de dados e a inserção de dados fictícios no banco .
 <br />
 
 ```sh
-npm run dev
+npm run prestart
 ```
 
 <br />
