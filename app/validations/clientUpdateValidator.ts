@@ -30,7 +30,6 @@ export default class ClientUpdateValidator {
     'cpf.required': 'CPF is mandatory.',
     'cpf.minLength': 'The CPF must be at least 11 characters long.',
     'cpf.maxLength': 'The CPF must not be longer than 11 characters.',
-    'cpf.unique': 'This CPF is already registered.',
-    'user_id.required': 'User ID is mandatory.',
+    'cpf.unique': 'This CPF is already registered.',    
   }
 }
