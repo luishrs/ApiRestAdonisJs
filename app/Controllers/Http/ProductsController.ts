@@ -5,7 +5,6 @@ import ProductValidator from 'App/validations/producValidator'
 export default class ProductsController {
   public async store ({ request, response }: HttpContextContract) {
 const body = request.body()
-
   try {
       await request.validate(ProductValidator)
     } catch ({messages: {errors}}) {
@@ -21,6 +20,7 @@ const body = request.body()
   }
 
   public async index ({ response }: HttpContextContract) {
+    
     try {
       const products = await Product.all()
       if (products.length === 0) {
