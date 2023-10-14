@@ -39,7 +39,7 @@ export default class SalesController {
   
   public async index ({response}: HttpContextContract) {
     try {
-      const data = await Sale.query().preload('client').preload('product').orderBy('created_at', 'desc')    
+      const data = await Sale.query().preload('client').preload('product').orderBy('created_at', 'asc')    
       if (data.length === 0) {
         throw new Error('There are no registered sales')
       } 
@@ -60,7 +60,7 @@ export default class SalesController {
   try {
     const data = await Sale.query()
       .whereRaw(`YEAR(created_at) = ? AND MONTH(created_at) = ?`,
- [year, month]).preload('client').preload('product');
+ [year, month]).preload('client').preload('product').orderBy('created_at', 'asc');
     if (data.length === 0) {
       return response.status(400).json({ message: 'There are no sales in this period' });
     }    
