@@ -51,6 +51,9 @@ export default class SalesController {
     const data = await Sale.query()
       .whereRaw(`YEAR(created_at) = ? AND MONTH(created_at) = ?`,
  [year, month]).preload('client').preload('product');
+    if (data.length === 0) {
+      return response.status(400).json({ message: 'There are no sales in this period' });
+    }    
     return data;
   } catch (error) {
     return response.status(400).json({ message: 'you need type sales/filter?year=?&month=?' });

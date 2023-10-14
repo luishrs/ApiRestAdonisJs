@@ -28,7 +28,7 @@ const { name} = body
 
   public async index ({ response }: HttpContextContract) {
     try {
-      const products = await Product.query().orderBy('id', 'desc')
+      const products = await Product.query().select(['id', 'name']).orderBy('name', 'asc')
       return response.status(200).json(products)
     } catch (error) {
       return response.status(400).json({message: error.message})

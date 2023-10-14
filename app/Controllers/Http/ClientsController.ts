@@ -27,7 +27,7 @@ export default class ClientsController {
   public async index({  response }: HttpContextContract) {
   
   try {
-    const data = await Client.query().preload('addresses').preload('telephones').preload('sales').orderBy('id', 'desc') 
+    const data = await Client.query().preload('addresses').preload('telephones').orderBy('id', 'desc') 
     if (data.length === 0) {
       return response.status(400).json({ message: 'There are no unregistered customers' })
     }
@@ -51,7 +51,13 @@ export default class ClientsController {
   }
 
   public async update({ request, response }: HttpContextContract) {
-
+    const{addresses, telephones} = request.body()
+    if (addresses) {
+      //chamar a função de cadastro na adress
+    }
+    if (telephones) {
+      //chamar a função de cadastro na telephone
+    }
       try {
       await request.validate(ClientUpdateValidator)
     } catch ({messages: {errors}}) {
