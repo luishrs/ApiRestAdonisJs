@@ -1,5 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
+import registerAddress from 'App/utils/RegisterAddres'
+import registerTelephone from 'App/utils/RegisterTelephone'
 import ClientUpdateValidator from 'App/validations/clientUpdateValidator'
 import ClientValidator from 'App/validations/clientValidator'
 
@@ -50,25 +52,24 @@ export default class ClientsController {
     }
   }
 
-  public async update({ request, response }: HttpContextContract) {
-    const{addresses, telephones} = request.body()
-    if (addresses) {
-      //chamar a função de cadastro na adress
-    }
-    if (telephones) {
-      //chamar a função de cadastro na telephone
-    }
-      try {
+  public async update({ request, response, params }: HttpContextContract) {
+    const{address, telephone:{ number }} = request.body()   
+    try {
       await request.validate(ClientUpdateValidator)
     } catch ({messages: {errors}}) {
       return response.status(400).json({erro: errors[0].message})
     }
-    
-    try {
-      const { id } = request.params()
-      const body = request.body()
-      const client = await Client.findOrFail(id)      
-      client.merge(body)
+    if (address) {
+      await registerAddress(address, params.id)
+    }
+    if (number) {
+      await registerTelephone(number, params.id)
+  }
+  
+  try {   
+      const {name, cpf} = request.body()
+      const client = await Client.findOrFail(params.id)         
+      client.merge({name, cpf})
       await client.save()
       return response.status(200).json({
         message: 'Client successfully updated',

@@ -40,6 +40,6 @@ export default class Sale extends BaseModel {
 
    @beforeSave()
   public static calculateTotalPrice(sale: Sale) {
-    sale.totalPrice = sale.unitPrice * sale.quantity
+    sale.totalPrice = Number(sale.unitPrice) * Number( sale.quantity)
   }
 }
