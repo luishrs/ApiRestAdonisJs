@@ -71,9 +71,17 @@ cd ApiRestAdonisJs
 
 #### Renomear arquivo ".env.example" para ".env"
 
+<br /> 
+Em seguida, execute o seguinte comando para configurar seu ambiente e iniciar o serviço do backend:
+
+```sh
+npm run prestart
+```
+
 <br />
 
-Inicie o serviço do bakend:
+O comando npm run prestart realiza várias etapas essenciais para a inicialização do projeto, incluindo a instalação de dependências, a configuração do ambiente, a execução das migrações de banco de dados e a inserção de dados fictícios no banco . Depois disso, você pode iniciar o serviço do backend usando:
+<br />
 
 ```sh
 npm run dev
