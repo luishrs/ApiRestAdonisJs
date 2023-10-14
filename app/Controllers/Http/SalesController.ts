@@ -9,7 +9,7 @@ export default class SalesController {
 
   public async store ( {request, response}: HttpContextContract) {
     const body = request.body()
-     const { client_id, product_id, quantity,} = body
+     const { client_id, product_id, quantity} = body
     try {
       await request.validate(SaleValidator)
     } catch ({messages: {errors}}) {
@@ -18,17 +18,16 @@ export default class SalesController {
     const stockSufficient = await isStockSufficient(product_id, quantity)
     if (!stockSufficient) {
       return response.status(400).json({message: 'Insufficient stock'})
-    }
-
+    }    
+    
     const product = await Product.findBy('id', product_id)
+    product &&  await Product.query().where('id', product_id).update({stock: product?.stock - quantity})
     const sale = {
       client_id,
       product_id,
       quantity,
       unit_price: Number(product?.price),
-    }
-   
-
+    } 
 
     try {
       const saleregistred = await Sale.create(sale)
