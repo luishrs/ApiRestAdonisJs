@@ -16,16 +16,19 @@ export default class SalesController {
       const sale = await Sale.create(body)
       return response.status(201).json(sale)
     } catch (error) {
-      return response.status(400).json({message: error.message})
+      return response.status(400).json({message: 'Product or client not found'})
     }     
   }
   
   public async index ({response}: HttpContextContract) {
     try {
-      const data = await Sale.query().preload('client').preload('product').orderBy('created_at', 'desc')     
+      const data = await Sale.query().preload('client').preload('product').orderBy('created_at', 'desc')    
+      if (data.length === 0) {
+        throw new Error('There are no registered sales')
+      } 
       return data
     } catch (error) {
-      return response.status(400).json({message: error.message})
+      return response.status(400).json({message: 'Sales not found'})
     }
   }
 
