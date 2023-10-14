@@ -89,15 +89,6 @@ npm run dev
 
 <br />
 
-Abra outro terminal e execute o comenado npm run prestart realiza várias etapas essenciais para a inicialização do projeto, a configuração do ambiente, a execução das migrações de banco de dados e a inserção de dados fictícios no banco .
-<br />
-
-```sh
-npm run prestart
-```
-
-<br />
-
 ### Conectando ao Banco de Dados
 
 Para interagir com o banco de dados e gerenciar seus dados de forma visual, você pode usar uma aplicação de interface gráfica de banco de dados de sua escolha. Recomendamos o uso da extensão "MySQL" para o Visual Studio Code, que oferece funcionalidades poderosas e é uma opção conveniente para desenvolvedores que já estão familiarizados com o ambiente do VS Code.
@@ -112,7 +103,16 @@ No entanto, se você preferir usar uma aplicação independente, existem várias
 
 Escolha a aplicação que melhor se adapte às suas necessidades e preferências. Depois de instalá-la, você poderá usar a interface gráfica para conectar-se ao seu banco de dados, criar tabelas, inserir dados e realizar outras tarefas de gerenciamento.
 
-Lembre-se de configurar a conexão com o banco de dados **usuário: root**, **password: betest**, demais informações são fornecidas no arquivo `.env` do projeto.
+## Lembre-se de configurar a conexão com o banco de dados `usuário: root`,` password: betest`, demais informações são fornecidas no arquivo `.env` do projeto.
+
+Abra outro terminal e execute o comenado npm run prestart realiza várias etapas essenciais para a inicialização do projeto, a configuração do ambiente, a execução das migrações de banco de dados e a inserção de dados fictícios no banco .
+<br />
+
+```sh
+npm run prestart
+```
+
+<br />
 
 ### Testando a API
 
