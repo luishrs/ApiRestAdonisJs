@@ -89,6 +89,14 @@ npm run dev
 
 <br />
 
+Iniciar o docker do banco de dados.
+
+```sh
+docker-compose up -d
+```
+
+<br />
+
 ### Conectando ao Banco de Dados
 
 Para interagir com o banco de dados e gerenciar seus dados de forma visual, você pode usar uma aplicação de interface gráfica de banco de dados de sua escolha. Recomendamos o uso da extensão "MySQL" para o Visual Studio Code, que oferece funcionalidades poderosas e é uma opção conveniente para desenvolvedores que já estão familiarizados com o ambiente do VS Code.
