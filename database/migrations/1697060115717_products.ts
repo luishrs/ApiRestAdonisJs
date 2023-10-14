@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.string('author')
       table.string('editor')
       table.decimal('price', 8, 2)
+      table.integer('stock')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

@@ -5,7 +5,6 @@ import ProductValidator from 'App/validations/producValidator'
 export default class ProductsController {
   public async store ({ request, response }: HttpContextContract) {
 const body = request.body()
-
   try {
       await request.validate(ProductValidator)
     } catch ({messages: {errors}}) {
@@ -21,8 +20,12 @@ const body = request.body()
   }
 
   public async index ({ response }: HttpContextContract) {
+    
     try {
       const products = await Product.all()
+      if (products.length === 0) {
+      throw new Error('There are no registered products')
+      }
       return response.status(200).json(products)
     } catch (error) {
       return response.status(400).json({message: error.message})
@@ -34,7 +37,7 @@ const body = request.body()
       const product = await Product.findOrFail(params.id)
       return response.status(200).json(product)
     } catch (error) {
-      return response.status(400).json({message: error.message})
+      return response.status(400).json({message: 'Product not found'})
     }
   }
 
@@ -53,7 +56,7 @@ const body = request.body()
       await product.save()
       return response.status(200).json(product)
     } catch (error) {
-      return response.status(400).json({message: "Product not found" })
+      return response.status(400).json({message: 'Product not found' })
     }
   }
 
@@ -66,7 +69,7 @@ const body = request.body()
         product
     })
     } catch (error) {
-      return response.status(400).json({message: "Product not found"})
+      return response.status(400).json({message: 'Product not found'})
     }
   }
 }
