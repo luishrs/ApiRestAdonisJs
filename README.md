@@ -132,7 +132,7 @@ Para registrar um usuário, faça uma requisição POST http://localhost:3333/re
 
 ```sh
 {
-"email": "seuusername",
+"email": "email@email.com",
 "password": "suasenha"
 }
 ```
@@ -160,7 +160,7 @@ Para autenticar um usuário, faça uma requisição POST com o corpo da seguinte
 
 ```sh
 {
-"email": "seuusername",
+"email": "email@email.com",
 "password": "suasenha"
 }
 ```
@@ -311,10 +311,62 @@ A rota GET/clients ou GET http://localhost:3333/clientes/:id, retorno será no s
 
 A rota PUT http://localhost:3333/clientes/:id, sempre será necessário informar "name" e "cpf" do cliente, e como opcional endereço e/ou telefone, para atualizar as informações cadastradas.
 
+O corpo da requisição ser de 5 formatos, pode ser simples, ou acicionado a chave addess e/ou telephome para atualizar os dados do cliente.
+
+1
+
 ```sh
 {
   "name":"cliente atualizado",
   "cpf": "12345678901"
+}
+```
+
+2
+
+```sh
+{
+"name": "cliente atualizado ",
+"cpf": "78945612325",
+"address":{
+       "country": "Pais 5",
+        "state": "Estado 5",
+        "city": "Cidade 5",
+        "neighborhood": "Bairro 1",
+        "street": "Rua 1",
+        "number": "1"
+},
+"telephone":{
+  "number": "999817774"
+}
+```
+
+3
+
+```sh
+{
+"name": "cliente atualizado ",
+"cpf": "78945612325",
+"address":{
+       "country": "Pais 5",
+        "state": "Estado 5",
+        "city": "Cidade 5",
+        "neighborhood": "Bairro 1",
+        "street": "Rua 1",
+        "number": "1"
+}
+}
+```
+
+4
+
+```sh
+{
+"name": "cliente atualizado ",
+"cpf": "78945612325",
+"telephone":{
+  "number": "999817774"
+}
 }
 ```
 
