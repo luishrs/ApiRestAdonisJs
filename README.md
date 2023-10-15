@@ -205,7 +205,7 @@ Para simplificar e agilizar o registro de clientes, será necessário apenas nom
 ```sh
 {
   "name":"Nome do Cliente",
-  "cpf": "12345678963",
+  "cpf": "12345678963"
 }
 ```
 
@@ -339,6 +339,7 @@ O corpo da requisição ser de 5 formatos, pode ser simples, ou acicionado a cha
 "telephone":{
   "number": "999817774"
 }
+}
 ```
 
 3
@@ -457,6 +458,22 @@ Para listar todos os produtos, faça uma requisição GET http://localhost:3333/
   }
 ]
 
+```
+
+<br />
+Para listar um produto especifico, faça uma requisição GET http://localhost:3333/products/:id, o retorno será no seguinte formato., com todas especificações do produto.
+
+```sh
+{
+  "id": 1,
+  "name": "Produto 1",
+  "author": "Autor 1",
+  "editor": "Editora 1",
+  "price": "10.99",
+  "stock": 10,
+  "created_at": "2023-10-15T12:26:08.000-03:00",
+  "updated_at": "2023-10-15T12:26:08.000-03:00"
+}
 ```
 
 <br />
