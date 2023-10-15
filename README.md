@@ -128,7 +128,7 @@ Para testar a API e realizar solicitações, recomendamos o uso de uma ferrament
 
 <br />
 
-Para registrar um usuário, faça uma requisição POST http://localhost:3333/register com o corpo da seguinte forma:
+Para registrar um usuário, faça uma requisição POST http://localhost:3333/signup com o corpo da seguinte forma:
 
 ```sh
 {

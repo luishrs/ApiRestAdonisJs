@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import registerValidator from 'App/validations/registerValidator'
 import User from 'App/Models/User'
 
-export default class RegistersController {
+export default class SignupController {
     public async store( { request, response,}:HttpContextContract){
     const {email} = request.all()
     

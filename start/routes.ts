@@ -19,7 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-Route.resource('/register', 'RegistersController')
+Route.resource('/signup', 'SignupController')
 Route.resource('/login', 'LoginsController')
 
 Route.group(() => {
