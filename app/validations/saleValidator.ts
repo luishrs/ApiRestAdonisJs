@@ -13,11 +13,7 @@ export default class SaleValidator {
     quantity : schema.number([
       rules.required(),
       rules.unsigned(),
-    ]),
-    unit_price : schema.number([
-      rules.required(),
-      rules.unsigned(),
-    ]),    
+    ]),       
   })
   
  public messages = {
@@ -26,9 +22,7 @@ export default class SaleValidator {
     'product_id.required': 'Product ID is mandatory.',
     'product_id.unsigned': 'Product ID must be a positive number.',
     'quantity.required': 'Quantity is mandatory.',
-    'quantity.unsigned': 'Quantity must be a positive number.',
-    'unit_price.required': 'Unit price is mandatory.',
-    'unit_price.unsigned': 'Unit price must be a positive number.',
+    'quantity.unsigned': 'Quantity must be a positive number.',    
   }
 }
 

@@ -14,7 +14,11 @@ export default class ProductValidator {
     price: schema.number([
       rules.required(),
       rules.unsigned(),
-    ]),        
+    ]), 
+    stock: schema.number([
+      rules.required(),
+      rules.unsigned(),
+    ]),       
   })
   
  public messages = {    
@@ -23,6 +27,8 @@ export default class ProductValidator {
     'editor.required': 'Editor is mandatory.',
     'price.required': 'Price is mandatory.',
     'price.unsigned': 'Price must be a positive number.',
+    'stock.required': 'Stock is mandatory.',
+    'stock.unsigned': 'Stock must be a positive number.',
   }
 }
 

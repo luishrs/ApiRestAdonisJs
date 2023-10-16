@@ -128,11 +128,11 @@ Para testar a API e realizar solicitações, recomendamos o uso de uma ferrament
 
 <br />
 
-Para registrar um usuário, faça uma requisição POST http://localhost:3333/register com o corpo da seguinte forma:
+Para registrar um usuário, faça uma requisição POST http://localhost:3333/signup com o corpo da seguinte forma:
 
 ```sh
 {
-"email": "seuusername",
+"email": "email@email.com",
 "password": "suasenha"
 }
 ```
@@ -160,7 +160,7 @@ Para autenticar um usuário, faça uma requisição POST com o corpo da seguinte
 
 ```sh
 {
-"email": "seuusername",
+"email": "email@email.com",
 "password": "suasenha"
 }
 ```
@@ -200,100 +200,174 @@ Para acessar essas rotas, certifique-se de que o token de autenticação esteja 
 
 /clients: CRUD de Clientes (Requer Autenticação)
 
-Para registrar um cliente, faça uma requisição POST http://localhost:3333/clients com o corpo da seguinte forma:
+Para simplificar e agilizar o registro de clientes, será necessário apenas nome e cpf do cliente. Entretanto endereço e telefone tabém são criados, mas só poderá ser inserido da rota PUT, faça uma requisição POST http://localhost:3333/clients com o corpo da seguinte forma:
 
 ```sh
 {
   "name":"Nome do Cliente",
-  "cpf": "12345678963",
-  "user_id": 2
+  "cpf": "12345678963"
 }
 ```
 
 <br />
-
-Obs: o user_id deve ser o mesmo recebino na rota POST http://localhost:3333/register
 
 O retorno será no seguinte formato.
 
 ```sh
-{
+ {
   "message": "Client successfully registered",
   "data": {
     "name": "Nome do Cliente",
     "cpf": "12345678963",
-    "user_id": 2,
     "created_at": "2023-10-13T16:46:52.878-03:00",
     "updated_at": "2023-10-13T16:46:52.878-03:00",
-    "id": 1
-  }
-}
+   }
+ }
 ```
 
 <br />
 
-A rota GET/clients ou GET http://localhost:3333/clientes/:id, retorno será no seguinte formato.
+A rota GET/clients ou GET http://localhost:3333/clientes, retorno será no seguinte formato.
 
 ```sh
 [
   {
     "id": 1,
-    "name": "Nome do Cliente",
-    "cpf": "12345678963",
-    "user_id": 2,
-    "created_at": "2023-10-13T16:46:52.000-03:00",
-    "updated_at": "2023-10-13T16:46:52.000-03:00",
+    "name": "Nome do Cliente 1 ",
+  },
+    {
+    "id": 2,
+    "name": "Nome do Cliente 2 ",
+  },
+  {
+    "id": 3,
+    "name": "Nome do Cliente 3 ",
+  }
+
+]
+
+```
+
+A rota GET/clients ou GET http://localhost:3333/clientes/:id, retorno será no seguinte formato
+
+```sh
+[
+  {
+    "id": 1,
+    "name": "cliente10",
+    "cpf": "12345678901",
+    "created_at": "2023-10-14T18:36:06.000-03:00",
+    "updated_at": "2023-10-14T20:19:02.000-03:00",
     "addresses": [
       {
         "id": 1,
-        "state": "RS",
-        "city": "Pelotas",
-        "neighborhood": "Areal",
-        "street": "Rua UM",
-        "number": "1234",
+        "country": "Pais 3",
+        "state": "Estado 3",
+        "city": "Cidade 3",
+        "neighborhood": "Bairro 1",
+        "street": "Rua 1",
+        "number": "1",
         "client_id": 1,
-        "created_at": null,
-        "updated_at": null
+        "created_at": "2023-10-14T18:36:06.000-03:00",
+        "updated_at": "2023-10-14T20:22:06.000-03:00"
       }
     ],
     "telephones": [
       {
         "id": 1,
-        "number": "999887766",
+        "number": "00000000",
         "client_id": 1,
-        "created_at": null,
-        "updated_at": null
-      },
-      {
-        "id": 2,
-        "number": "999336625",
-        "client_id": 1,
-        "created_at": null,
-        "updated_at": null
+        "created_at": "2023-10-14T18:36:06.000-03:00",
+        "updated_at": "2023-10-14T20:22:06.000-03:00"
       }
     ],
-    "user": {
-      "id": 2,
-      "email": "seuemail@email.com",
-      "password": "$scrypt$n=16384,r=8,p=1$WC/B3zZ0m6uG7QKwikad2A$NfyLulR3+DRLJIkSrABKtkjc4XbCgrOXw5K0QIJTWZ67m850Crtg27U8KGX9DgurgnMAhCIvuf02aKd3tFQhXQ",
-      "created_at": "2023-10-13T15:49:34.000-03:00",
-      "updated_at": "2023-10-13T15:49:34.000-03:00"
-    },
-    "sales": []
+    "sales": [
+      {
+        "id": 1,
+        "client_id": 1,
+        "product_id": 1,
+        "quantity": 2,
+        "unit_price": "10.99",
+        "total_price": "21.98",
+        "created_at": "2023-10-14T18:36:06.000-03:00",
+        "updated_at": "2023-10-14T18:36:06.000-03:00"
+      },
+      {
+        "id": 4,
+        "client_id": 1,
+        "product_id": 1,
+        "quantity": 3,
+        "unit_price": "10.99",
+        "total_price": "32.97",
+        "created_at": "2023-10-14T18:37:37.000-03:00",
+        "updated_at": "2023-10-14T18:37:37.000-03:00"
+      }
+    ]
   }
 ]
-
 ```
 
 <br />
 
-A rota PUT http://localhost:3333/clientes/:id necessitara das mesmas insformaçoes na POST
+A rota PUT http://localhost:3333/clientes/:id, sempre será necessário informar "name" e "cpf" do cliente, e como opcional endereço e/ou telefone, para atualizar as informações cadastradas.
+
+O corpo da requisição ser de 5 formatos, pode ser simples, ou acicionado a chave addess e/ou telephome para atualizar os dados do cliente.
+
+1
 
 ```sh
 {
-  "name":"Nome do Cliente Atualizado",
-  "cpf": "00000000000",
-  "user_id": 2
+  "name":"cliente atualizado",
+  "cpf": "12345678901"
+}
+```
+
+2
+
+```sh
+{
+"name": "cliente atualizado ",
+"cpf": "78945612325",
+"address":{
+       "country": "Pais 5",
+        "state": "Estado 5",
+        "city": "Cidade 5",
+        "neighborhood": "Bairro 1",
+        "street": "Rua 1",
+        "number": "1"
+},
+"telephone":{
+  "number": "999817774"
+}
+}
+```
+
+3
+
+```sh
+{
+"name": "cliente atualizado ",
+"cpf": "78945612325",
+"address":{
+       "country": "Pais 5",
+        "state": "Estado 5",
+        "city": "Cidade 5",
+        "neighborhood": "Bairro 1",
+        "street": "Rua 1",
+        "number": "1"
+}
+}
+```
+
+4
+
+```sh
+{
+"name": "cliente atualizado ",
+"cpf": "78945612325",
+"telephone":{
+  "number": "999817774"
+}
 }
 ```
 
@@ -302,13 +376,12 @@ O retorno será no seguinte formato.
 ```sh
 {
   "message": "Client successfully updated",
-  "data": {
+  "client": {
     "id": 1,
-    "name": "Nome do Cliente Atualizado",
-    "cpf": "00000000000",
-    "user_id": 2,
-    "created_at": "2023-10-13T16:46:52.000-03:00",
-    "updated_at": "2023-10-13T17:00:01.348-03:00"
+    "name": "cliente atualizado",
+    "cpf": "12345678901",
+    "created_at": "2023-10-14T18:36:06.000-03:00",
+    "updated_at": "2023-10-14T20:27:53.113-03:00"
   }
 }
 ```
@@ -322,7 +395,6 @@ A rota DELETE http://localhost:3333/clients/:id, o retorno será no seguinte for
     "id": 2,
     "name": "Nome do Cliente para deletar",
     "cpf": "85296374147",
-    "user_id": 2,
     "created_at": "2023-10-13T17:02:07.000-03:00",
     "updated_at": "2023-10-13T17:02:07.000-03:00"
   }
@@ -332,14 +404,15 @@ A rota DELETE http://localhost:3333/clients/:id, o retorno será no seguinte for
 <br />
 /products: CRUD de Produtos (Requer Autenticação)
 
-Para registrar um produto, faça uma requisição POST http://localhost:3333/products com o corpo da seguinte forma:
+Para registrar um produto, vale ressaltar que a tabela de produtos interage com a tabela de vendas, para controlar sua quantidade em estoque. Faça uma requisição POST http://localhost:3333/products com o corpo da seguinte forma:
 
 ```sh
 {
-  "name": "Livro 2",
+  "name": "Livro Novo",
   "author": "autor 2",
   "editor":"editora 2",
-  "price": 8.99
+  "price": 8.99,
+  "stock" :10
 }
 
 ```
@@ -350,42 +423,57 @@ O retorno será no seguinte formato.
 
 ```sh
 {
-  "name": "Livro 2",
+  "name": "Livro Novo",
   "author": "autor 2",
   "editor": "editora 2",
   "price": 8.99,
-  "created_at": "2023-10-13T17:12:47.920-03:00",
-  "updated_at": "2023-10-13T17:12:47.920-03:00",
-  "id": 3
+  "stock": 10,
+  "created_at": "2023-10-14T20:38:47.378-03:00",
+  "updated_at": "2023-10-14T20:38:47.379-03:00",
+  "id": 5
 }
 ```
 
 <br />
 
-Para listar todos os produtos, faça uma requisição GET http://localhost:3333/products ou GET http://localhost:3333/products/:id, o retorno será no seguinte formato.
+Para listar todos os produtos, faça uma requisição GET http://localhost:3333/products ou GET http://localhost:3333/products/:id, o retorno será no seguinte formato, sendo ordenado pelo nome, em ordem alfabética.
 
 ```sh
 [
   {
-    "id": 3,
-    "name": "Livro 2 atualizado",
-    "author": "autor 2 atualizado",
-    "editor": "editora 2 atualizado",
-    "price": 3,
-    "created_at": "2023-10-13T17:12:47.000-03:00",
-    "updated_at": "2023-10-13T17:14:57.000-03:00"
+    "id": 5,
+    "name": "Livro Novo"
+  },
+  {
+    "id": 1,
+    "name": "Produto 1"
   },
   {
     "id": 2,
-    "name": "Livro 1",
-    "author": "autor 1",
-    "editor": "editora 1",
-    "price": 8,
-    "created_at": "2023-10-13T17:12:07.000-03:00",
-    "updated_at": "2023-10-13T17:12:07.000-03:00"
+    "name": "Produto 2"
   },
+  {
+    "id": 3,
+    "name": "Produto 3"
+  }
 ]
 
+```
+
+<br />
+Para listar um produto especifico, faça uma requisição GET http://localhost:3333/products/:id, o retorno será no seguinte formato., com todas especificações do produto.
+
+```sh
+{
+  "id": 1,
+  "name": "Produto 1",
+  "author": "Autor 1",
+  "editor": "Editora 1",
+  "price": "10.99",
+  "stock": 10,
+  "created_at": "2023-10-15T12:26:08.000-03:00",
+  "updated_at": "2023-10-15T12:26:08.000-03:00"
+}
 ```
 
 <br />
@@ -397,7 +485,8 @@ Para atualizar um produto, faça uma requisição PUT http://localhost:3333/prod
   "name": "Livro 2 atualizado",
   "author": "autor 2 atualizado",
   "editor":"editora 2 atualizado",
-  "price":3
+  "price":3.99,
+  "stock": 10
 }
 ```
 
@@ -410,7 +499,8 @@ o retorno será no seguinte formato.
   "name": "Livro 2 atualizado",
   "author": "autor 2 atualizado",
   "editor": "editora 2 atualizado",
-  "price": 3,
+  "price": 3.99,
+  "stock": 10,
   "created_at": "2023-10-13T17:12:47.000-03:00",
   "updated_at": "2023-10-13T17:14:57.886-03:00"
 }
@@ -428,7 +518,8 @@ Para deletar um produto, faça uma requisição DELETE http://localhost:3333/pro
     "name": "Livro para ser deletado",
     "author": "autor ",
     "editor": "editora",
-    "price": 6,
+    "price": 6.99,
+    "stock": 10,
     "created_at": "2023-10-13T17:23:36.000-03:00",
     "updated_at": "2023-10-13T17:23:36.000-03:00"
   }
@@ -439,14 +530,13 @@ Para deletar um produto, faça uma requisição DELETE http://localhost:3333/pro
 
 /sales: CRUD de Vendas (Requer Autenticação)
 
-Para Criar uma venda, faça uma requisição POST http://localhost:3333/sales com o corpo da seguinte forma:
+Para Criar uma venda, a quantidade em estoque e o valor total é feito dinamicamente, faça uma requisição POST http://localhost:3333/sales com o corpo da seguinte forma:
 
 ```sh
 {
   "client_id":1,
   "product_id":1,
-  "quantity":2,
-  "unit_price":5
+  "quantity":2
 }
 ```
 
@@ -458,49 +548,12 @@ o retorno será no seguinte formato.
   "client_id": 1,
   "product_id": 1,
   "quantity": 2,
-  "unit_price": 5,
-  "total_price": 10,
-  "created_at": "2023-10-13T17:31:08.688-03:00",
-  "updated_at": "2023-10-13T17:31:08.688-03:00",
-  "id": 1
+  "unit_price": 10.99,
+  "total_price": 21.98,
+  "created_at": "2023-10-14T20:47:52.394-03:00",
+  "updated_at": "2023-10-14T20:47:52.394-03:00",
+  "id": 4
 }
-```
-
-<br />
-
-Para filtrar uma venda pelo ano/mês, faça uma requisição GET http://localhost:3333/sales nesse formato:<br />
-http://localhost:3333/sales/filter?year=2023&month=10 onde o mês e anos foram descritos, o retorno será no seguinte formato.
-
-```sh
-[
-  {
-    "id": 3,
-    "client_id": 1,
-    "product_id": 1,
-    "quantity": 5,
-    "unit_price": 3,
-    "total_price": 15,
-    "created_at": "2023-01-03T00:00:00.000-03:00",
-    "updated_at": "2023-01-03T00:00:00.000-03:00",
-    "product": {
-      "id": 1,
-      "name": "Naruto",
-      "author": "naruto",
-      "editor": "xablau",
-      "price": 8,
-      "created_at": "2023-10-13T14:55:54.000-03:00",
-      "updated_at": "2023-10-13T14:55:54.000-03:00"
-    },
-    "client": {
-      "id": 1,
-      "name": "Nome do Cliente Atualizado",
-      "cpf": "00000000000",
-      "user_id": 2,
-      "created_at": "2023-10-13T16:46:52.000-03:00",
-      "updated_at": "2023-10-13T17:00:01.000-03:00"
-    }
-  }
-]
 ```
 
 <br />
@@ -510,76 +563,151 @@ Para listar todas as vendas, faça uma requisição GET http://localhost:3333/sa
 ```sh
 [
   {
-    "id": 2,
-    "client_id": 1,
-    "product_id": 1,
-    "quantity": 5,
-    "unit_price": 3,
-    "total_price": 15,
-    "created_at": "2023-10-13T17:32:26.000-03:00",
-    "updated_at": "2023-10-13T17:32:37.000-03:00",
-    "client": {
-      "id": 1,
-      "name": "Nome do Cliente Atualizado",
-      "cpf": "00000000000",
-      "user_id": 2,
-      "created_at": "2023-10-13T16:46:52.000-03:00",
-      "updated_at": "2023-10-13T17:00:01.000-03:00"
-    },
-    "product": {
-      "id": 1,
-      "name": "Naruto",
-      "author": "naruto",
-      "editor": "xablau",
-      "price": 8,
-      "created_at": "2023-10-13T14:55:54.000-03:00",
-      "updated_at": "2023-10-13T14:55:54.000-03:00"
-    }
-  },
-  {
     "id": 1,
     "client_id": 1,
     "product_id": 1,
     "quantity": 2,
-    "unit_price": 5,
-    "total_price": 10,
-    "created_at": "2023-10-13T17:31:08.000-03:00",
-    "updated_at": "2023-10-13T17:31:08.000-03:00",
+    "unit_price": "10.99",
+    "total_price": "21.98",
+    "created_at": "2023-10-14T18:36:06.000-03:00",
+    "updated_at": "2023-10-14T18:36:06.000-03:00",
     "client": {
       "id": 1,
-      "name": "Nome do Cliente Atualizado",
-      "cpf": "00000000000",
-      "user_id": 2,
-      "created_at": "2023-10-13T16:46:52.000-03:00",
-      "updated_at": "2023-10-13T17:00:01.000-03:00"
+      "name": "cliente atualizado",
+      "cpf": "12345678901",
+      "created_at": "2023-10-14T18:36:06.000-03:00",
+      "updated_at": "2023-10-14T20:27:53.000-03:00"
     },
     "product": {
       "id": 1,
-      "name": "Naruto",
-      "author": "naruto",
-      "editor": "xablau",
-      "price": 8,
-      "created_at": "2023-10-13T14:55:54.000-03:00",
-      "updated_at": "2023-10-13T14:55:54.000-03:00"
+      "name": "Produto 1",
+      "author": "Autor 1",
+      "editor": "Editora 1",
+      "price": "10.99",
+      "stock": 5,
+      "created_at": "2023-10-14T18:36:06.000-03:00",
+      "updated_at": "2023-10-14T18:36:06.000-03:00"
+    }
+  },
+  {
+    "id": 2,
+    "client_id": 2,
+    "product_id": 2,
+    "quantity": 3,
+    "unit_price": "12.99",
+    "total_price": "38.97",
+    "created_at": "2023-10-14T18:36:06.000-03:00",
+    "updated_at": "2023-10-14T18:36:06.000-03:00",
+    "client": {
+      "id": 2,
+      "name": "Cliente 2",
+      "cpf": "23456789012",
+      "created_at": "2023-10-14T18:36:06.000-03:00",
+      "updated_at": "2023-10-14T18:36:06.000-03:00"
+    },
+    "product": {
+      "id": 2,
+      "name": "Produto 2",
+      "author": "Autor 2",
+      "editor": "Editora 2",
+      "price": "12.99",
+      "stock": 7,
+      "created_at": "2023-10-14T18:36:06.000-03:00",
+      "updated_at": "2023-10-14T18:36:06.000-03:00"
     }
   },
   {
     "id": 3,
+    "client_id": 3,
+    "product_id": 3,
+    "quantity": 1,
+    "unit_price": "9.99",
+    "total_price": "9.99",
+    "created_at": "2023-10-14T18:36:06.000-03:00",
+    "updated_at": "2023-10-14T18:36:06.000-03:00",
+    "client": {
+      "id": 3,
+      "name": "Cliente 3",
+      "cpf": "34567890123",
+      "created_at": "2023-10-14T18:36:06.000-03:00",
+      "updated_at": "2023-10-14T18:36:06.000-03:00"
+    },
+    "product": {
+      "id": 3,
+      "name": "Produto 3",
+      "author": "Autor 3",
+      "editor": "Editora 3",
+      "price": "9.99",
+      "stock": 10,
+      "created_at": "2023-10-14T18:36:06.000-03:00",
+      "updated_at": "2023-10-14T18:36:06.000-03:00"
+    }
+  },
+  {
+    "id": 4,
     "client_id": 1,
     "product_id": 1,
-    "quantity": 5,
-    "unit_price": 3,
-    "total_price": 15,
-    "created_at": "2023-01-03T00:00:00.000-03:00",
-    "updated_at": "2023-01-03T00:00:00.000-03:00",
+    "quantity": 3,
+    "unit_price": "10.99",
+    "total_price": "32.97",
+    "created_at": "2023-10-14T18:37:37.000-03:00",
+    "updated_at": "2023-10-14T18:37:37.000-03:00",
     "client": {
       "id": 1,
-      "name": "Nome do Cliente Atualizado",
-      "cpf": "00000000000",
-      "user_id": 2,
-      "created_at": "2023-10-13T16:46:52.000-03:00",
-      "updated_at": "2023-10-13T17:00:01.000-03:00"
+      "name": "cliente atualizado",
+      "cpf": "12345678901",
+      "created_at": "2023-10-14T18:36:06.000-03:00",
+      "updated_at": "2023-10-14T20:27:53.000-03:00"
+    },
+    "product": {
+      "id": 1,
+      "name": "Produto 1",
+      "author": "Autor 1",
+      "editor": "Editora 1",
+      "price": "10.99",
+      "stock": 5,
+      "created_at": "2023-10-14T18:36:06.000-03:00",
+      "updated_at": "2023-10-14T18:36:06.000-03:00"
     }
-
+  }
 ]
 ```
+
+<br />
+
+Para filtrar uma venda pelo ano/mês, faça uma requisição GET http://localhost:3333/sales nesse formato:<br />
+http://localhost:3333/sales/filter?year=2023&month=1 onde o mês e anos foram descritos, o retorno será no seguinte formato.
+
+```sh
+[
+  {
+    "id": 4,
+    "client_id": 1,
+    "product_id": 1,
+    "quantity": 3,
+    "unit_price": "10.99",
+    "total_price": "32.97",
+    "created_at": "2023-01-14T18:37:37.000-03:00",
+    "updated_at": "2023-10-14T18:37:37.000-03:00",
+    "client": {
+      "id": 1,
+      "name": "cliente atualizado",
+      "cpf": "12345678901",
+      "created_at": "2023-10-14T18:36:06.000-03:00",
+      "updated_at": "2023-10-14T20:27:53.000-03:00"
+    },
+    "product": {
+      "id": 1,
+      "name": "Produto 1",
+      "author": "Autor 1",
+      "editor": "Editora 1",
+      "price": "10.99",
+      "stock": 5,
+      "created_at": "2023-10-14T18:36:06.000-03:00",
+      "updated_at": "2023-10-14T18:36:06.000-03:00"
+    }
+  }
+]
+```
+
+<br />

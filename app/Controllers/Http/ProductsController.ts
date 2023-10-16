@@ -5,16 +5,23 @@ import ProductValidator from 'App/validations/producValidator'
 export default class ProductsController {
   public async store ({ request, response }: HttpContextContract) {
 const body = request.body()
+const { name} = body
+
   try {
       await request.validate(ProductValidator)
     } catch ({messages: {errors}}) {
       return response.status(400).json({erro: errors[0].message})
     }
 
-  try {
+    const productExists = await Product.findBy('name', name)
+    if (productExists?.name === name) {
+      return response.status(400).json({message: 'Product already exists'})
+    }
+
+    try {
     const product = await Product.create(body)
     return response.status(201).json(product)
-  }    catch (error) {
+    }    catch (error) {
       return response.status(400).json({message: error.message})
     }
   }
@@ -22,10 +29,7 @@ const body = request.body()
   public async index ({ response }: HttpContextContract) {
     
     try {
-      const products = await Product.all()
-      if (products.length === 0) {
-      throw new Error('There are no registered products')
-      }
+      const products = await Product.query().select(['id', 'name']).orderBy('name', 'asc')
       return response.status(200).json(products)
     } catch (error) {
       return response.status(400).json({message: error.message})

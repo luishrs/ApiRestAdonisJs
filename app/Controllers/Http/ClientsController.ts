@@ -1,5 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
+import registerAddress from 'App/utils/RegisterAddres'
+import registerTelephone from 'App/utils/RegisterTelephone'
 import ClientUpdateValidator from 'App/validations/clientUpdateValidator'
 import ClientValidator from 'App/validations/clientValidator'
 
@@ -27,8 +29,10 @@ export default class ClientsController {
   public async index({  response }: HttpContextContract) {
   
   try {
-    const data = await Client.query().preload('addresses').preload('telephones').preload('user').preload('sales').orderBy('id', 'desc') 
-    
+    const data = await Client.query().select(['name','id' ]).orderBy('id', 'desc') 
+    if (data.length === 0) {
+      return response.status(400).json({ message: 'There are no unregistered customers' })
+    }
     return data
   }catch (error) {
     return response.status(400).json({ message: error.message })
@@ -38,33 +42,42 @@ export default class ClientsController {
   public async show({ request, response }: HttpContextContract) {
     try {
       const { id } = request.params()      
-      const client = await Client.query().preload('addresses').preload('telephones').preload('user').preload('sales').where('id', id)
+      const client = await Client.query().preload('addresses').preload('telephones').preload('sales').where('id', id)
+      if (client.length === 0) {
+        return response.status(400).json({ message: 'Client not found' })
+      }
       return client
     } catch (error) {
       return response.status(400).json({ message: 'Client not found' })
     }
   }
 
-  public async update({ request, response }: HttpContextContract) {
-
-      try {
+  public async update({ request, response, params }: HttpContextContract) {
+    const{address, telephone} = request.body()  
+ 
+    try {
       await request.validate(ClientUpdateValidator)
     } catch ({messages: {errors}}) {
       return response.status(400).json({erro: errors[0].message})
     }
-    
-    try {
-      const { id } = request.params()
-      const body = request.body()
-      const data = await Client.findOrFail(id)
-      data.merge(body)
-      await data.save()
+    if (address) {
+      await registerAddress(address, params.id)
+    }
+    if (telephone && telephone.number) { 
+      await registerTelephone(telephone.number, params.id);
+    }
+  
+  try {   
+      const {name, cpf} = request.body()
+      const client = await Client.findOrFail(params.id)         
+      client.merge({name, cpf})
+      await client.save()
       return response.status(200).json({
         message: 'Client successfully updated',
-        data
+        client
       })
     } catch (error) {
-      return response.status(400).json({ message: error.message })
+      return response.status(400).json({ message: 'Client not found' })
     }
   }
 
@@ -72,11 +85,11 @@ export default class ClientsController {
   
     try {
       const { id } = request.params()
-      const data = await Client.findOrFail(id)
-      await data.delete()
+      const client = await Client.findOrFail(id)      
+      await client.delete()
       return response.status(200).json({
         message: 'Client successfully deleted',
-        data
+        client
       })
     } catch (error) {
       return response.status(400).json({ message: 'Client not found' })
